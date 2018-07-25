@@ -1,0 +1,40 @@
+{
+  "name": "@github/g-emoji-element",
+  "version": "0.0.1",
+  "description": "Backports native emoji characters to browsers that don't support them by replacing the characters with fallback images.",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "license": "MIT",
+  "repository": "github/g-emoji-element",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "eslint index.js emoji-detection.js test/ && flow check",
+    "prebuild": "npm run clean && npm run lint && mkdir dist",
+    "build": "rollup -c",
+    "pretest": "npm run build",
+    "test": "karma start test/karma.config.js",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-custom-element-classes": "^0.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-flow": "^6.23.0",
+    "chai": "^4.1.2",
+    "eslint": "^5.0.1",
+    "eslint-plugin-github": "1.0.0",
+    "flow-bin": "^0.75.0",
+    "karma": "^2.0.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "mocha": "^5.0.5",
+    "rollup": "^0.63.4",
+    "rollup-plugin-babel": "^3.0.7"
+  }
+}
