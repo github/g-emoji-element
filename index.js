@@ -38,7 +38,7 @@ function emojiImage(el) {
 
 export default GEmojiElement
 
-if (!window.customElements.get('custom-element')) {
+if (!window.customElements.get('g-emoji')) {
   window.GEmojiElement = GEmojiElement
   window.customElements.define('g-emoji', GEmojiElement)
 }
