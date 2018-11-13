@@ -30,7 +30,8 @@ class GEmojiElement extends HTMLElement {
 function emojiImage(el) {
   const image = document.createElement('img')
   image.className = 'emoji'
-  image.alt = el.getAttribute('alias') || ''
+  image.alt = el.textContent || ''
+  image.title = el.getAttribute('alias') || ''
   image.height = 20
   image.width = 20
   return image
