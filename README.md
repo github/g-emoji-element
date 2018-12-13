@@ -22,7 +22,7 @@ If a browser supports emoji, nothing happens. If a browser does not support emoj
 
 ```html
 <g-emoji fallback-src="t-rex.png" alias="T-Rex">
-  <img class="emoji" alt="T-Rex" height="20" width="20" src="t-rex.png">
+  <img class="emoji" alt="🦖" title="T-Rex" height="20" width="20" src="t-rex.png">
 </g-emoji>
 ```
 
