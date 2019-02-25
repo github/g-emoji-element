@@ -18,6 +18,12 @@
       "globals": {
         "assert": true
       }
+    },
+    {
+      "files": "prettier.config.js",
+      "rules": {
+        "flowtype/require-valid-file-annotation": "off"
+      }
     }
   ]
 }
