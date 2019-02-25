@@ -17,6 +17,10 @@ describe('g-emoji', function() {
 
   describe('in emoji-supporting platforms', function() {
     beforeEach(function() {
+      Object.defineProperty(navigator, 'userAgent', {
+        value: 'macOS',
+        configurable: true
+      })
       document.body.innerHTML = '<g-emoji>🦖</g-emoji>'
     })
 
