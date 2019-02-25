@@ -1,4 +1,4 @@
-/* @flow */
+/* @flow strict */
 
 export function isEmojiSupported(): boolean {
   const onWindows7 = /\bWindows NT 6.1\b/.test(navigator.userAgent)
