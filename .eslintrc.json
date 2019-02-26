@@ -4,5 +4,26 @@
     "plugin:github/browser",
     "plugin:github/flow"
   ],
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "overrides": [
+    {
+      "files": "test/**/*.js",
+      "rules": {
+        "github/unescaped-html-literal": "off",
+        "flowtype/require-valid-file-annotation": "off"
+      },
+      "env": {
+        "mocha": true
+      },
+      "globals": {
+        "assert": true
+      }
+    },
+    {
+      "files": "prettier.config.js",
+      "rules": {
+        "flowtype/require-valid-file-annotation": "off"
+      }
+    }
+  ]
 }

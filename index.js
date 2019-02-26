@@ -1,4 +1,5 @@
-/* @flow */
+/* @flow strict */
+
 import {isEmojiSupported} from './emoji-detection'
 
 class GEmojiElement extends HTMLElement {
