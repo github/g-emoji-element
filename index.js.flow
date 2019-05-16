@@ -1,0 +1,7 @@
+/* @flow strict */
+
+declare module '@github/g-emoji-element' {
+  declare export default class GEmojiElement extends HTMLElement {
+    get image(): ?HTMLImageElement;
+  }
+}
