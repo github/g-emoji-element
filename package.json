@@ -4,6 +4,7 @@
   "description": "Backports native emoji characters to browsers that don't support them by replacing the characters with fallback images.",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "repository": "github/g-emoji-element",
   "files": [
@@ -13,7 +14,7 @@
     "clean": "rm -rf dist",
     "lint": "github-lint",
     "prebuild": "npm run clean && npm run lint && mkdir dist",
-    "build": "rollup -c && cp index.js.flow dist/index.esm.js.flow && cp index.js.flow dist/index.umd.js.flow",
+    "build": "rollup -c && cp index.js.flow dist/index.esm.js.flow && cp index.js.flow dist/index.umd.js.flow && cp index.d.ts dist/index.d.ts",
     "pretest": "npm run build",
     "test": "karma start test/karma.config.js",
     "prepublishOnly": "npm run build"
