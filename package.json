@@ -4,10 +4,12 @@
   "description": "Backports native emoji characters to browsers that don't support them by replacing the characters with fallback images.",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
+  "types": "index.d.ts",
   "license": "MIT",
   "repository": "github/g-emoji-element",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "clean": "rm -rf dist",
