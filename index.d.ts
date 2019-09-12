@@ -4,6 +4,6 @@ export default class GEmojiElement extends HTMLElement {
 
 declare global {
   interface Window {
-    GEmojiElement: GEmojiElement
+    GEmojiElement: typeof GEmojiElement
   }
 }
