@@ -32,6 +32,40 @@ describe('g-emoji', function() {
       const GEmoji = document.querySelector('g-emoji')
       assert.equal(GEmoji.innerHTML, '🦖')
     })
+
+    it('applies skin tone modifier', function() {
+      const emoji = document.createElement('g-emoji')
+      emoji.textContent = '👋'
+
+      emoji.tone = 1
+      assert.equal(emoji.textContent, '👋🏻')
+
+      emoji.tone = 2
+      assert.equal(emoji.textContent, '👋🏼')
+
+      emoji.tone = 3
+      assert.equal(emoji.textContent, '👋🏽')
+
+      emoji.tone = 4
+      assert.equal(emoji.textContent, '👋🏾')
+
+      emoji.tone = 5
+      assert.equal(emoji.textContent, '👋🏿')
+    })
+
+    it('removes skin tone modifier', function() {
+      const emoji = document.createElement('g-emoji')
+      emoji.textContent = '👋🏽'
+      emoji.tone = 0
+      assert.equal(emoji.textContent, '👋')
+    })
+
+    it('applies tone attribute', function() {
+      const emoji = document.createElement('g-emoji')
+      emoji.textContent = '👋'
+      emoji.setAttribute('tone', '3')
+      assert.equal(emoji.textContent, '👋🏽')
+    })
   })
 
   describe('in non emoji-supporting platforms', function() {
