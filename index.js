@@ -1,6 +1,7 @@
 /* @flow strict */
 
 import {isEmojiSupported} from './emoji-detection'
+import {isModifiable} from './modifiers'
 
 class GEmojiElement extends HTMLElement {
   get image() {
@@ -15,6 +16,8 @@ class GEmojiElement extends HTMLElement {
 
   set tone(modifier: number) {
     if (this.image) return
+    if (!isModifiable(this.textContent)) return
+
     const point = toneModifier(modifier)
     if (point) {
       this.textContent = applyTone(this.textContent, point)
