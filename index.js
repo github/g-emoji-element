@@ -14,6 +14,10 @@ class GEmojiElement extends HTMLElement {
     }
   }
 
+  get tone(): number {
+    return this.hasAttribute('tone') ? parseInt(this.getAttribute('tone'), 10) : 0
+  }
+
   set tone(modifier: number) {
     if (this.image) return
     if (!isModifiable(this.textContent)) return
