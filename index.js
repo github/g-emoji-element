@@ -78,13 +78,8 @@ function isTone(point: number): boolean {
 }
 
 function applyTone(emoji: string, tone: number): string {
-  const points = [...emoji].map(ch => ch.codePointAt(0))
-  if (points[1] && isTone(points[1])) {
-    points[1] = tone
-  } else {
-    points.splice(1, 0, tone)
-  }
-  return String.fromCodePoint(...points)
+  const points = [...removeTone(emoji)].map(ch => ch.codePointAt(0))
+  return String.fromCodePoint(...points, tone)
 }
 
 function removeTone(emoji: string): string {
