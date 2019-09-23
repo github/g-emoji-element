@@ -3,6 +3,8 @@
 import {isEmojiSupported} from './emoji-detection'
 import {isModifiable} from './modifiers'
 
+type SkinTone = 0 | 1 | 2 | 3 | 4 | 5
+
 class GEmojiElement extends HTMLElement {
   get image() {
     // Check if fallback image already exists since this node may have been
@@ -16,10 +18,10 @@ class GEmojiElement extends HTMLElement {
 
   get tone(): number {
     const tone = parseInt(this.getAttribute('tone'), 10)
-    return MODIFIERS.includes(tone) ? tone : 0
+    return tone >= 0 && tone <= 5 ? tone : 0
   }
 
-  set tone(modifier: MODIFIERS) {
+  set tone(modifier: SkinTone) {
     this.setAttribute('tone', String(modifier))
   }
 
@@ -36,7 +38,7 @@ class GEmojiElement extends HTMLElement {
     return ['tone']
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+  attributeChangedCallback(name: string) {
     switch (name) {
       case 'tone':
         updateTone(this)
@@ -45,7 +47,7 @@ class GEmojiElement extends HTMLElement {
   }
 }
 
-function updateTone(el: GEmojiElement, modifier: number) {
+function updateTone(el: GEmojiElement) {
   if (el.image) return
   if (!isModifiable(el.textContent)) return
 

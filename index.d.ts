@@ -1,6 +1,8 @@
+type SkinTone = 0 | 1 | 2 | 3 | 4 | 5
+
 export default class GEmojiElement extends HTMLElement {
   image?: HTMLImageElement
-  tone: number
+  tone: SkinTone
 }
 
 declare global {

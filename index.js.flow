@@ -1,9 +1,11 @@
 /* @flow strict */
 
 declare module '@github/g-emoji-element' {
+  declare type SkinTone = 0 | 1 | 2 | 3 | 4 | 5
+
   declare export default class GEmojiElement extends HTMLElement {
     get image(): ?HTMLImageElement;
-    get tone(): number;
-    set tone(modifier: number): void;
+    get tone(): SkinTone;
+    set tone(modifier: SkinTone): void;
   }
 }
