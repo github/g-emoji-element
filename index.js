@@ -15,10 +15,11 @@ class GEmojiElement extends HTMLElement {
   }
 
   get tone(): number {
-    return this.hasAttribute('tone') ? parseInt(this.getAttribute('tone'), 10) : 0
+    const tone = parseInt(this.getAttribute('tone'), 10)
+    return MODIFIERS.includes(tone) ? tone : 0
   }
 
-  set tone(modifier: number) {
+  set tone(modifier: MODIFIERS) {
     this.setAttribute('tone', String(modifier))
   }
 
@@ -38,7 +39,7 @@ class GEmojiElement extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     switch (name) {
       case 'tone':
-        updateTone(this, parseInt(newValue, 10))
+        updateTone(this)
         break
     }
   }
@@ -48,7 +49,7 @@ function updateTone(el: GEmojiElement, modifier: number) {
   if (el.image) return
   if (!isModifiable(el.textContent)) return
 
-  const point = toneModifier(modifier)
+  const point = toneModifier(el.tone)
   if (point) {
     el.textContent = applyTone(el.textContent, point)
   } else {
