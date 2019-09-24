@@ -83,7 +83,7 @@ describe('g-emoji', function() {
           const original = '\u{1f44b}'
           // 👋🏿 waving hand, tone
           const expected = '\u{1f44b}\u{1f3ff}'
-          assertCodepoints(original, expected, 5)
+          assertSingleTone(original, expected, 5)
         })
 
         it('replaces modifier', function() {
@@ -91,7 +91,7 @@ describe('g-emoji', function() {
           const original = '\u{1f44b}\u{1f3fb}'
           // 👋🏿 waving hand, tone
           const expected = '\u{1f44b}\u{1f3ff}'
-          assertCodepoints(original, expected, 5)
+          assertSingleTone(original, expected, 5)
         })
 
         it('replaces presentation code with modifier', function() {
@@ -99,7 +99,7 @@ describe('g-emoji', function() {
           const original = '\u{1f575}\u{fe0f}\u{200d}\u{2640}\u{fe0f}'
           // 🕵🏿‍♀️ sleuth, tone, zwj, gender, variation 16
           const expected = '\u{1f575}\u{1f3ff}\u{200d}\u{2640}\u{fe0f}'
-          assertCodepoints(original, expected, 5)
+          assertSingleTone(original, expected, 5)
         })
 
         it('inserts modifier before gender', function() {
@@ -107,7 +107,7 @@ describe('g-emoji', function() {
           const original = '\u{1f3c3}\u{200d}\u{2642}\u{fe0f}'
           // 🏃🏿‍♂️ runner, tone, zwj, gender, variation 16
           const expected = '\u{1f3c3}\u{1f3ff}\u{200d}\u{2642}\u{fe0f}'
-          assertCodepoints(original, expected, 5)
+          assertSingleTone(original, expected, 5)
         })
 
         it('inserts modifier after each emoji in a sequence', function() {
@@ -115,7 +115,7 @@ describe('g-emoji', function() {
           const original = '\u{1f9d1}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}'
           // 🧑🏿‍🤝‍🧑🏿 person, tone, zwj, handshake, zwj, person, tone
           const expected = '\u{1f9d1}\u{1f3ff}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}\u{1f3ff}'
-          assertCodepoints(original, expected, 5)
+          assertSingleTone(original, expected, 5)
         })
 
         it('replaces modifier after each emoji in a sequence', function() {
@@ -123,15 +123,41 @@ describe('g-emoji', function() {
           const original = '\u{1f9d1}\u{1f3fe}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}\u{1f3fb}'
           // 🧑🏿‍🤝‍🧑🏿 person, tone, zwj, handshake, zwj, person, tone
           const expected = '\u{1f9d1}\u{1f3ff}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}\u{1f3ff}'
-          assertCodepoints(original, expected, 5)
+          assertSingleTone(original, expected, 5)
+        })
+      })
+
+      describe('applying multiple tones', function() {
+        it('inserts modifier after each emoji in a sequence', function() {
+          // 🧑‍🤝‍🧑 person, zwj, handshake, zwj, person
+          const original = '\u{1f9d1}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}'
+          // 🧑🏾‍🤝‍🧑🏿 person, tone, zwj, handshake, zwj, person, tone
+          const expected = '\u{1f9d1}\u{1f3fe}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}\u{1f3ff}'
+          assertMultipleTones(original, expected, 4, 5)
+        })
+
+        it('replaces modifier after each emoji in a sequence', function() {
+          // 🧑🏼‍🤝‍🧑🏻 person, tone, zwj, handshake, zwj, person, tone
+          const original = '\u{1f9d1}\u{1f3fc}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}\u{1f3fb}'
+          // 🧑🏾‍🤝‍🧑🏿 person, tone, zwj, handshake, zwj, person, tone
+          const expected = '\u{1f9d1}\u{1f3fe}\u{200d}\u{1f91d}\u{200d}\u{1f9d1}\u{1f3ff}'
+          assertMultipleTones(original, expected, 4, 5)
         })
       })
     })
 
-    function assertCodepoints(original, expected, tone) {
+    function assertSingleTone(original, expected, tone) {
       const el = document.createElement('g-emoji')
       el.textContent = original
       el.tone = tone
+      const replaced = el.textContent
+      assert.deepEqual(codepoints(replaced), codepoints(expected))
+    }
+
+    function assertMultipleTones(original, expected, ...tones) {
+      const el = document.createElement('g-emoji')
+      el.textContent = original
+      el.tones = tones
       const replaced = el.textContent
       assert.deepEqual(codepoints(replaced), codepoints(expected))
     }

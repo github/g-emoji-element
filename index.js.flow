@@ -7,5 +7,7 @@ declare module '@github/g-emoji-element' {
     get image(): ?HTMLImageElement;
     get tone(): SkinTone;
     set tone(modifier: SkinTone): void;
+    get tones(): Array<SkinTone>;
+    set tones(modifier: Array<SkinTone>): void;
   }
 }

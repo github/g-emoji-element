@@ -1,8 +1,7 @@
 /* @flow strict */
 
 import {isEmojiSupported} from './emoji-detection'
-import {isModifiable} from './modifiers'
-import {applyTone, removeTone} from './tones'
+import {applyTone, applyTones, removeTone} from './tones'
 
 type SkinTone = 0 | 1 | 2 | 3 | 4 | 5
 
@@ -26,6 +25,17 @@ class GEmojiElement extends HTMLElement {
     this.setAttribute('tone', String(modifier))
   }
 
+  get tones(): Array<number> {
+    return (this.getAttribute('tones') || '').split(' ').map(value => {
+      const tone = parseInt(value, 10)
+      return tone >= 0 && tone <= 5 ? tone : 0
+    })
+  }
+
+  set tones(modifiers: Array<SkinTone>) {
+    this.setAttribute('tones', modifiers.join(' '))
+  }
+
   connectedCallback() {
     if (this.image === null && !isEmojiSupported()) {
       this.textContent = ''
@@ -36,7 +46,7 @@ class GEmojiElement extends HTMLElement {
   }
 
   static get observedAttributes(): Array<string> {
-    return ['tone']
+    return ['tone', 'tones']
   }
 
   attributeChangedCallback(name: string) {
@@ -44,14 +54,21 @@ class GEmojiElement extends HTMLElement {
       case 'tone':
         updateTone(this)
         break
+      case 'tones':
+        updateTones(this)
+        break
     }
   }
 }
 
 function updateTone(el: GEmojiElement) {
   if (el.image) return
-  if (!isModifiable(el.textContent)) return
   el.textContent = el.tone === 0 ? removeTone(el.textContent) : applyTone(el.textContent, el.tone)
+}
+
+function updateTones(el: GEmojiElement) {
+  if (el.image) return
+  el.textContent = applyTones(el.textContent, el.tones)
 }
 
 // Generates an <img> child element for a <g-emoji> element.
