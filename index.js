@@ -2,6 +2,7 @@
 
 import {isEmojiSupported} from './emoji-detection'
 import {isModifiable} from './modifiers'
+import {applyTone, removeTone} from './tones'
 
 type SkinTone = 0 | 1 | 2 | 3 | 4 | 5
 
@@ -50,43 +51,7 @@ class GEmojiElement extends HTMLElement {
 function updateTone(el: GEmojiElement) {
   if (el.image) return
   if (!isModifiable(el.textContent)) return
-
-  const point = toneModifier(el.tone)
-  if (point) {
-    el.textContent = applyTone(el.textContent, point)
-  } else {
-    el.textContent = removeTone(el.textContent)
-  }
-}
-
-function toneModifier(id: number): ?number {
-  switch (id) {
-    case 1:
-      return 0x1f3fb
-    case 2:
-      return 0x1f3fc
-    case 3:
-      return 0x1f3fd
-    case 4:
-      return 0x1f3fe
-    case 5:
-      return 0x1f3ff
-    default:
-      return null
-  }
-}
-
-function isTone(point: number): boolean {
-  return point >= 0x1f3fb && point <= 0x1f3ff
-}
-
-function applyTone(emoji: string, tone: number): string {
-  const points = [...removeTone(emoji)].map(ch => ch.codePointAt(0))
-  return String.fromCodePoint(...points, tone)
-}
-
-function removeTone(emoji: string): string {
-  return [...emoji].filter(ch => !isTone(ch.codePointAt(0))).join('')
+  el.textContent = el.tone === 0 ? removeTone(el.textContent) : applyTone(el.textContent, el.tone)
 }
 
 // Generates an <img> child element for a <g-emoji> element.
