@@ -47,7 +47,7 @@ to each base emoji in a sequence. Some platforms will display these sequences
 as a single image while others will render each emoji in the sequence.
 
 ```html
-<g-emoji tone="4 5">🧑🏾<200d>🤝<200d>🧑🏿</g-emoji>
+<g-emoji tones="4 5">🧑🏾<200d>🤝<200d>🧑🏿</g-emoji>
 ```
 
 ## Browser support
