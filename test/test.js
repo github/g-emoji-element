@@ -41,6 +41,13 @@ describe('g-emoji', function() {
         assert.equal(emoji.textContent, '🦖')
       })
 
+      it('ignores modifiers for emoji sequences that do not support it', function() {
+        const emoji = document.createElement('g-emoji')
+        emoji.textContent = '👨‍👩‍👧‍👦'
+        emoji.tone = 1
+        assert.equal(emoji.textContent, '👨‍👩‍👧‍👦')
+      })
+
       it('applies skin tone modifier', function() {
         const emoji = document.createElement('g-emoji')
         emoji.textContent = '👋'
