@@ -6,22 +6,22 @@ const ZERO_WIDTH_JOINER = '\u{200d}'
 const VARIATION_16 = 0xfe0f
 
 export function applyTone(sequence: string, tone: number): string {
-  const tone2 = toneModifier(tone)
-  if (!tone2) return sequence
+  const modifier = toneModifier(tone)
+  if (!modifier) return sequence
   return sequence
     .split(ZERO_WIDTH_JOINER)
-    .map(emoji => (isModifiable(emoji) ? tint(emoji, tone2) : emoji))
+    .map(emoji => (isModifiable(emoji) ? tint(emoji, modifier) : emoji))
     .join(ZERO_WIDTH_JOINER)
 }
 
 export function applyTones(sequence: string, tones: Array<number>): string {
-  const tones2 = tones.map(t => toneModifier(t))
+  const modifiers = tones.map(t => toneModifier(t))
   return sequence
     .split(ZERO_WIDTH_JOINER)
     .map(emoji => {
       if (!isModifiable(emoji)) return emoji
-      const tone = tones2.shift()
-      return tone ? tint(emoji, tone) : emoji
+      const modifier = modifiers.shift()
+      return modifier ? tint(emoji, modifier) : emoji
     })
     .join(ZERO_WIDTH_JOINER)
 }
