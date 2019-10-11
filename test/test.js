@@ -37,7 +37,7 @@ describe('g-emoji', function() {
       it('ignores modifiers for emoji that do not support it', function() {
         const emoji = document.createElement('g-emoji')
         emoji.textContent = '🦖'
-        emoji.tone = 1
+        emoji.tone = '1'
         assert.equal(emoji.textContent, '🦖')
       })
 
@@ -45,26 +45,26 @@ describe('g-emoji', function() {
         const emoji = document.createElement('g-emoji')
         emoji.textContent = '👋'
 
-        emoji.tone = 1
+        emoji.tone = '1'
         assert.equal(emoji.textContent, '👋🏻')
 
-        emoji.tone = 2
+        emoji.tone = '2'
         assert.equal(emoji.textContent, '👋🏼')
 
-        emoji.tone = 3
+        emoji.tone = '3'
         assert.equal(emoji.textContent, '👋🏽')
 
-        emoji.tone = 4
+        emoji.tone = '4'
         assert.equal(emoji.textContent, '👋🏾')
 
-        emoji.tone = 5
+        emoji.tone = '5'
         assert.equal(emoji.textContent, '👋🏿')
       })
 
       it('removes skin tone modifier', function() {
         const emoji = document.createElement('g-emoji')
         emoji.textContent = '👋🏽'
-        emoji.tone = 0
+        emoji.tone = '0'
         assert.equal(emoji.textContent, '👋')
       })
 
@@ -149,7 +149,7 @@ describe('g-emoji', function() {
     function assertSingleTone(original, expected, tone) {
       const el = document.createElement('g-emoji')
       el.textContent = original
-      el.tone = tone
+      el.tone = String(tone)
       const replaced = el.textContent
       assert.deepEqual(codepoints(replaced), codepoints(expected))
     }
@@ -157,7 +157,7 @@ describe('g-emoji', function() {
     function assertMultipleTones(original, expected, ...tones) {
       const el = document.createElement('g-emoji')
       el.textContent = original
-      el.tones = tones
+      el.tone = tones.join(' ')
       const replaced = el.textContent
       assert.deepEqual(codepoints(replaced), codepoints(expected))
     }
