@@ -16,16 +16,16 @@ const pluck = key => obj => obj[key]
 const isFitzpatrick = pluck('fitzpatrick_scale')
 const emoji = pluck('char')
 const codepoints = text => [...text].map(ch => ch.codePointAt(0))
-const hex = num => `0x${num.toString(16)}`
-const first = pluck(0)
+const hex = points => [...points].map(num => `0x${num.toString(16)}`)
+const string = hexArray => `[${[...hexArray].join(',')}]`
 
 const points = new Set(
   Object.values(emojis)
     .filter(isFitzpatrick)
     .map(emoji)
     .map(codepoints)
-    .map(first)
     .map(hex)
+    .map(string)
 )
 
 const script = `
@@ -36,10 +36,22 @@ const script = `
 
 const points = new Set([
   ${[...points].sort().join(',')}
-])
+].map(arr => arr.join(',')))
+
+const ZERO_WIDTH_JOINER = '\u{200d}'
+const VARIATION_16 = String.fromCodePoint(0xfe0f)
+const GENDER_M = String.fromCodePoint(9794)
+const GENDER_F = String.fromCodePoint(9792)
+const regex = new RegExp(\`\${GENDER_M}|\${GENDER_F}|\${ZERO_WIDTH_JOINER}|\${VARIATION_16}\`, 'g')
+
+function codePoints(emoji) {
+  return [...emoji].map(ch => ch.codePointAt(0)).join(',')
+}
 
 export function isModifiable(emoji: string): boolean {
-  return points.has(emoji.codePointAt(0))
+  const sanitizedCodePoints = codePoints(emoji.replace(regex, ''))
+  const fullCodePoints = codePoints(emoji)
+  return points.has(fullCodePoints) || points.has(sanitizedCodePoints)
 }
 `
 
