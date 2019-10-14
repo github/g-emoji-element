@@ -10,22 +10,19 @@
 // 3. npm run generate-emoji
 // 4. git commit -am "Update emoji list"
 
-const emojis = require('emojilib').lib
+const data = require('unicode-emoji-json')
 
-const pluck = key => obj => obj[key]
-const isFitzpatrick = pluck('fitzpatrick_scale')
-const emoji = pluck('char')
+const isFitzpatrick = key => data[key].fitzpatrick_scale
 const codepoints = text => [...text].map(ch => ch.codePointAt(0))
-const hex = num => `0x${num.toString(16)}`
-const first = pluck(0)
+const hex = points => [...points].map(num => `0x${num.toString(16)}`)
+const string = hexArray => `[${[...hexArray].join(',')}]`
 
 const points = new Set(
-  Object.values(emojis)
+  Object.keys(data)
     .filter(isFitzpatrick)
-    .map(emoji)
     .map(codepoints)
-    .map(first)
     .map(hex)
+    .map(string)
 )
 
 const script = `
@@ -36,10 +33,14 @@ const script = `
 
 const points = new Set([
   ${[...points].sort().join(',')}
-])
+].map(arr => arr.join(',')))
+
+function codePoints(emoji) {
+  return [...emoji].map(ch => ch.codePointAt(0)).join(',')
+}
 
 export function isModifiable(emoji: string): boolean {
-  return points.has(emoji.codePointAt(0))
+  return points.has(codePoints(emoji))
 }
 `
 

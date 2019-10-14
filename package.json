@@ -27,7 +27,6 @@
     "@babel/core": "^7.4.5",
     "babel-preset-github": "^3.2.0",
     "chai": "^4.2.0",
-    "emojilib": "^2.4.0",
     "eslint": "^6.0.0",
     "eslint-plugin-github": "^2.0.0",
     "flow-bin": "^0.101.1",
@@ -38,9 +37,11 @@
     "karma-mocha-reporter": "^2.2.5",
     "mocha": "^6.1.4",
     "rollup": "^1.16.2",
-    "rollup-plugin-babel": "^4.3.3"
+    "rollup-plugin-babel": "^4.3.3",
+    "unicode-emoji-json": "0.0.2"
   },
   "eslintIgnore": [
     "dist/"
-  ]
+  ],
+  "dependencies": {}
 }
