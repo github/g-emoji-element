@@ -53,7 +53,7 @@ The `tone` attribute renders the emoji with a [skin tone modifier][scale] betwee
 
 The `tone` attribute accepts a space separated list of skin tone modifiers to apply
 to each base emoji in a sequence. Some platforms will display these sequences
-as a single image while others will render each emoji in the sequence.
+as a single glyph while others will render each emoji in the sequence.
 
 ```html
 <g-emoji tone="4 5">🧑🏾<200d>🤝<200d>🧑🏿</g-emoji>
