@@ -42,6 +42,15 @@ The `tone` attribute renders the emoji with a [skin tone modifier][scale] betwee
 <g-emoji tone="5">👋🏿</g-emoji>
 ```
 
+```js
+> const emoji = document.createElement('g-emoji')
+> emoji.textContent = '👋'
+> emoji.tone = '5'
+> document.body.append(emoji)
+> emoji.textContent
+"👋🏿"
+```
+
 The `tone` attribute accepts a space separated list of skin tone modifiers to apply
 to each base emoji in a sequence. Some platforms will display these sequences
 as a single image while others will render each emoji in the sequence.
