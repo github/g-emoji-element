@@ -13,6 +13,15 @@ describe('g-emoji', function() {
       const el = new window.GEmojiElement()
       assert.equal('G-EMOJI', el.nodeName)
     })
+
+    it('applies skin tone when connected', function() {
+      const el = new window.GEmojiElement()
+      el.tone = '1'
+      el.textContent = '👋'
+      document.body.append(el)
+      assert.equal('G-EMOJI', el.nodeName)
+      assert.equal('👋🏻', el.textContent)
+    })
   })
 
   describe('in emoji-supporting platforms', function() {
