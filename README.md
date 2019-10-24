@@ -28,7 +28,7 @@ If a browser supports emoji, nothing happens. If a browser does not support emoj
 
 ### Skin tones
 
-The `tone` and `tones` attributes render the emoji with a [skin tone modifier][scale] between 1-5. Use
+The `tone` attribute renders the emoji with a [skin tone modifier][scale] between 1-5. Use
 0 to display the default tone.
 
 [scale]: https://en.wikipedia.org/wiki/Fitzpatrick_scale
@@ -42,12 +42,12 @@ The `tone` and `tones` attributes render the emoji with a [skin tone modifier][s
 <g-emoji tone="5">👋🏿</g-emoji>
 ```
 
-The `tones` attribute accepts a space separated list of skin tone modifiers to apply
+The `tone` attribute accepts a space separated list of skin tone modifiers to apply
 to each base emoji in a sequence. Some platforms will display these sequences
 as a single image while others will render each emoji in the sequence.
 
 ```html
-<g-emoji tones="4 5">🧑🏾<200d>🤝<200d>🧑🏿</g-emoji>
+<g-emoji tone="4 5">🧑🏾<200d>🤝<200d>🧑🏿</g-emoji>
 ```
 
 ## Browser support
