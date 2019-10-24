@@ -3,5 +3,7 @@
 declare module '@github/g-emoji-element' {
   declare export default class GEmojiElement extends HTMLElement {
     get image(): ?HTMLImageElement;
+    get tone(): string;
+    set tone(modifiers: string): void;
   }
 }

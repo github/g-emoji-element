@@ -17,6 +17,7 @@
     "prebuild": "npm run clean && npm run lint && mkdir dist",
     "build": "rollup -c && cp index.js.flow dist/index.esm.js.flow && cp index.js.flow dist/index.umd.js.flow",
     "pretest": "npm run build",
+    "generate-emoji": "script/generate-emoji-modifiers > modifiers.js && prettier --write modifiers.js",
     "test": "karma start test/karma.config.js",
     "prepublishOnly": "npm run build",
     "postpublish": "npm publish --ignore-scripts --@github:registry='https://npm.pkg.github.com'"
@@ -36,9 +37,11 @@
     "karma-mocha-reporter": "^2.2.5",
     "mocha": "^6.1.4",
     "rollup": "^1.16.2",
-    "rollup-plugin-babel": "^4.3.3"
+    "rollup-plugin-babel": "^4.3.3",
+    "unicode-emoji-json": "0.0.2"
   },
   "eslintIgnore": [
     "dist/"
-  ]
+  ],
+  "dependencies": {}
 }
