@@ -1,5 +1,12 @@
 describe('g-emoji', function() {
   describe('element creation', function() {
+    beforeEach(function() {
+      Object.defineProperty(navigator, 'userAgent', {
+        value: 'macOS',
+        configurable: true
+      })
+    })
+
     afterEach(function() {
       document.body.innerHTML = ''
     })
