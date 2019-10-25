@@ -29,6 +29,14 @@ describe('g-emoji', function() {
       assert.equal('G-EMOJI', el.nodeName)
       assert.equal('👋🏻', el.textContent)
     })
+
+    it('does not change skin tone when connected without tone attribute', function() {
+      const el = new window.GEmojiElement()
+      el.textContent = '👋🏻'
+      document.body.append(el)
+      assert.equal('G-EMOJI', el.nodeName)
+      assert.equal('👋🏻', el.textContent)
+    })
   })
 
   describe('in emoji-supporting platforms', function() {

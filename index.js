@@ -35,7 +35,10 @@ class GEmojiElement extends HTMLElement {
       image.src = this.getAttribute('fallback-src') || ''
       this.appendChild(image)
     }
-    updateTone(this)
+
+    if (this.hasAttribute('tone')) {
+      updateTone(this)
+    }
   }
 
   static get observedAttributes(): Array<string> {
