@@ -38,7 +38,7 @@
     "mocha": "^6.1.4",
     "rollup": "^1.26.3",
     "rollup-plugin-babel": "^4.3.3",
-    "unicode-emoji-json": "0.0.2"
+    "unicode-emoji-json": "0.1.0"
   },
   "eslintIgnore": [
     "dist/"

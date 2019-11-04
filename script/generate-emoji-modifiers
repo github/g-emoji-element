@@ -13,7 +13,7 @@
 const data = require('unicode-emoji-json/data-by-group.json')
 
 const pluck = key => obj => obj[key]
-const isFitzpatrick = pluck('fitzpatrick_scale')
+const isFitzpatrick = pluck('skin_tone_support')
 const emoji = pluck('emoji')
 const quote = text => `'${text}'`
 const quoted = Object.values(data)
