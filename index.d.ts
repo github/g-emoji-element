@@ -7,4 +7,7 @@ declare global {
   interface Window {
     GEmojiElement: typeof GEmojiElement
   }
+  interface HTMLElementTagNameMap {
+    'g-emoji': GEmojiElement
+  }
 }
