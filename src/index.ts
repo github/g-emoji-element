@@ -28,10 +28,13 @@ class GEmojiElement extends HTMLElement {
 
   connectedCallback() {
     if (this.image === null && !isEmojiSupported()) {
-      this.textContent = ''
-      const image = emojiImage(this)
-      image.src = this.getAttribute('fallback-src') || ''
-      this.appendChild(image)
+      const src = this.getAttribute('fallback-src')
+      if (src) {
+        this.textContent = ''
+        const image = emojiImage(this)
+        image.src = src
+        this.appendChild(image)
+      }
     }
 
     if (this.hasAttribute('tone')) {
