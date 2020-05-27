@@ -204,7 +204,7 @@ describe('g-emoji', function() {
         value: 'Linux',
         configurable: true
       })
-      document.body.innerHTML = '<g-emoji>🦖</g-emoji>'
+      document.body.innerHTML = '<g-emoji fallback-src="test.png">🦖</g-emoji>'
     })
 
     afterEach(function() {
@@ -213,7 +213,7 @@ describe('g-emoji', function() {
 
     it('we provide a image tag', function() {
       const GEmoji = document.querySelector('g-emoji')
-      assert.equal(GEmoji.innerHTML, '<img class="emoji" alt="" height="20" width="20" src="">')
+      assert.equal(GEmoji.innerHTML, '<img class="emoji" alt="" height="20" width="20" src="test.png">')
     })
   })
 })
