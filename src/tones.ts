@@ -29,12 +29,10 @@ export function applyTones(sequence: string, tones: number[]): string {
 }
 
 export function removeTone(emoji: string): string {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return [...emoji].filter(ch => !isTone(ch.codePointAt(0)!)).join('')
 }
 
 function tint(emoji: string, tone: number): string {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const points = [...emoji].map(p => p.codePointAt(0)!)
   if (points[1] && (isTone(points[1]) || points[1] === VARIATION_16)) {
     points[1] = tone
