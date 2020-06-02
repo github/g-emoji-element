@@ -26,7 +26,7 @@ class GEmojiElement extends HTMLElement {
     this.setAttribute('tone', modifiers)
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     if (this.image === null && !isEmojiSupported()) {
       const src = this.getAttribute('fallback-src')
       if (src) {
