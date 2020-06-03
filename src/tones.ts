@@ -1,5 +1,3 @@
-/* @flow strict */
-
 import {isModifiable} from './modifiers'
 
 const ZERO_WIDTH_JOINER = '\u{200d}'
@@ -16,7 +14,7 @@ export function applyTone(sequence: string, tone: number): string {
     .join(ZERO_WIDTH_JOINER)
 }
 
-export function applyTones(sequence: string, tones: Array<number>): string {
+export function applyTones(sequence: string, tones: number[]): string {
   const sequenceWithToneRemoved = removeTone(sequence)
   if (!isModifiable(sequenceWithToneRemoved)) return sequence
   const modifiers = tones.map(t => toneModifier(t))
@@ -31,11 +29,11 @@ export function applyTones(sequence: string, tones: Array<number>): string {
 }
 
 export function removeTone(emoji: string): string {
-  return [...emoji].filter(ch => !isTone(ch.codePointAt(0))).join('')
+  return [...emoji].filter(ch => !isTone(ch.codePointAt(0)!)).join('')
 }
 
 function tint(emoji: string, tone: number): string {
-  const points = [...emoji].map(p => p.codePointAt(0))
+  const points = [...emoji].map(p => p.codePointAt(0)!)
   if (points[1] && (isTone(points[1]) || points[1] === VARIATION_16)) {
     points[1] = tone
   } else {
@@ -48,7 +46,7 @@ function isTone(point: number): boolean {
   return point >= 0x1f3fb && point <= 0x1f3ff
 }
 
-function toneModifier(id: number): ?number {
+function toneModifier(id: number): number | null {
   switch (id) {
     case 1:
       return 0x1f3fb

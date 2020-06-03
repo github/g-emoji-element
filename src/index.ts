@@ -1,5 +1,3 @@
-/* @flow strict */
-
 import {isEmojiSupported} from './emoji-detection'
 import {applyTone, applyTones, removeTone} from './tones'
 
@@ -28,12 +26,15 @@ class GEmojiElement extends HTMLElement {
     this.setAttribute('tone', modifiers)
   }
 
-  connectedCallback() {
+  connectedCallback(): void {
     if (this.image === null && !isEmojiSupported()) {
-      this.textContent = ''
-      const image = emojiImage(this)
-      image.src = this.getAttribute('fallback-src') || ''
-      this.appendChild(image)
+      const src = this.getAttribute('fallback-src')
+      if (src) {
+        this.textContent = ''
+        const image = emojiImage(this)
+        image.src = src
+        this.appendChild(image)
+      }
     }
 
     if (this.hasAttribute('tone')) {
@@ -41,7 +42,7 @@ class GEmojiElement extends HTMLElement {
     }
   }
 
-  static get observedAttributes(): Array<string> {
+  static get observedAttributes(): string[] {
     return ['tone']
   }
 
@@ -59,12 +60,12 @@ function updateTone(el: GEmojiElement) {
 
   const tones = el.tone.split(' ').map(x => parseInt(x, 10))
   if (tones.length === 0) {
-    el.textContent = removeTone(el.textContent)
+    el.textContent = removeTone(el.textContent || '')
   } else if (tones.length === 1) {
     const tone = tones[0]
-    el.textContent = tone === 0 ? removeTone(el.textContent) : applyTone(el.textContent, tone)
+    el.textContent = tone === 0 ? removeTone(el.textContent || '') : applyTone(el.textContent || '', tone)
   } else {
-    el.textContent = applyTones(el.textContent, tones)
+    el.textContent = applyTones(el.textContent || '', tones)
   }
 }
 
@@ -73,7 +74,7 @@ function updateTone(el: GEmojiElement) {
 // el - The <g-emoji> element.
 //
 // Returns an HTMLImageElement.
-function emojiImage(el) {
+function emojiImage(el: Element) {
   const image = document.createElement('img')
   image.className = 'emoji'
   image.alt = el.getAttribute('alias') || ''
@@ -83,6 +84,15 @@ function emojiImage(el) {
 }
 
 export default GEmojiElement
+
+declare global {
+  interface Window {
+    GEmojiElement: typeof GEmojiElement
+  }
+  interface HTMLElementTagNameMap {
+    'g-emoji': GEmojiElement
+  }
+}
 
 if (!window.customElements.get('g-emoji')) {
   window.GEmojiElement = GEmojiElement

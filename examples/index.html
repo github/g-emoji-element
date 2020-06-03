@@ -5,7 +5,11 @@
   <title>g-emoji demo</title>
 </head>
 <body>
+  <p>T-Rex emoji should be replaced with an image if the platform doesn't support emoji natively.</p>
   <g-emoji alias="T-Rex" fallback-src="t-rex.png">🦖</g-emoji>
-  <script src="../dist/index.umd.js"></script>
+  <p>Waving hand emoji should be set to skin tone 3.</p>
+  <g-emoji tone="3">👋</g-emoji>
+  <!-- <script type="module" src="../dist/index.js"></script> -->
+  <script type="module" src="https://unpkg.com/@github/g-emoji-element@latest?module"></script>
 </body>
 </html>
