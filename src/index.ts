@@ -2,7 +2,7 @@ import {isEmojiSupported} from './emoji-detection'
 import {applyTone, applyTones, removeTone} from './tones'
 
 class GEmojiElement extends HTMLElement {
-  get image() {
+  get image(): HTMLImageElement | null {
     // Check if fallback image already exists since this node may have been
     // cloned from another node
     if (this.firstElementChild instanceof HTMLImageElement) {
@@ -46,7 +46,7 @@ class GEmojiElement extends HTMLElement {
     return ['tone']
   }
 
-  attributeChangedCallback(name: string) {
+  attributeChangedCallback(name: string): void {
     switch (name) {
       case 'tone':
         updateTone(this)
