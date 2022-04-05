@@ -11,6 +11,7 @@
     {
       "files": "test/**/*.js",
       "rules": {
+        "github/no-inner-html": "off",
         "github/unescaped-html-literal": "off"
       },
       "env": {
