@@ -216,4 +216,27 @@ describe('g-emoji', function () {
       assert.equal(GEmoji.innerHTML, '<img class="emoji" alt="" height="20" width="20" src="test.png">')
     })
   })
+
+  describe('in application with a custom emoji support function', function () {
+    afterEach(function () {
+      GEmojiElement.emojiSupportFunction = null
+      document.body.innerHTML = ''
+    })
+
+    it('shows the unicode emoji if the function returns true', function () {
+      GEmojiElement.emojiSupportFunction = () => true
+      document.body.innerHTML = '<g-emoji fallback-src="test.png">🦖</g-emoji>'
+
+      const emoji = document.querySelector('g-emoji')
+      assert.equal(emoji.innerHTML, '🦖')
+    })
+
+    it('shows the fall back image if the function returns true', function () {
+      GEmojiElement.emojiSupportFunction = () => false
+      document.body.innerHTML = '<g-emoji fallback-src="test.png">🦖</g-emoji>'
+
+      const emoji = document.querySelector('g-emoji')
+      assert.equal(emoji.innerHTML, '<img class="emoji" alt="" height="20" width="20" src="test.png">')
+    })
+  })
 })
