@@ -84,6 +84,8 @@ function emojiImage(el: Element) {
   return image
 }
 
+export {applyTone, removeTone}
+
 export default GEmojiElement
 
 declare global {
