@@ -13,8 +13,11 @@ class GEmojiElement extends HTMLElement {
   }
 
   get tone(): string {
-    return (this.getAttribute('tone') || '')
-      .split(' ')
+    const attr = this.getAttribute('tone')
+    if (!attr) return ''
+    return attr
+      .trim()
+      .split(/\s+/)
       .map(value => {
         const tone = parseInt(value, 10)
         return tone >= 0 && tone <= 5 ? tone : 0
@@ -59,7 +62,7 @@ class GEmojiElement extends HTMLElement {
 function updateTone(el: GEmojiElement) {
   if (el.image) return
 
-  const tones = el.tone.split(' ').map(x => parseInt(x, 10))
+  const tones = el.tone ? el.tone.split(' ').map(x => parseInt(x, 10)) : []
   if (tones.length === 0) {
     el.textContent = removeTone(el.textContent || '')
   } else if (tones.length === 1) {

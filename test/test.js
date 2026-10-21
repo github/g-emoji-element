@@ -37,6 +37,17 @@ describe('g-emoji', function () {
       assert.equal('G-EMOJI', el.nodeName)
       assert.equal('👋🏻', el.textContent)
     })
+
+    it('returns empty string for tone property when no tone attribute is set', function () {
+      const el = new window.GEmojiElement()
+      assert.equal(el.tone, '')
+    })
+
+    it('returns empty string for tone property when tone attribute is empty', function () {
+      const el = new window.GEmojiElement()
+      el.setAttribute('tone', '')
+      assert.equal(el.tone, '')
+    })
   })
 
   describe('in emoji-supporting platforms', function () {
@@ -96,6 +107,13 @@ describe('g-emoji', function () {
         const emoji = document.createElement('g-emoji')
         emoji.textContent = '👋🏽'
         emoji.tone = '0'
+        assert.equal(emoji.textContent, '👋')
+      })
+
+      it('removes skin tone modifier with empty tone', function () {
+        const emoji = document.createElement('g-emoji')
+        emoji.textContent = '👋🏻'
+        emoji.tone = ''
         assert.equal(emoji.textContent, '👋')
       })
 
